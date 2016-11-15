@@ -59,12 +59,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Frame\ViewModel\VMFrame.cs" />
+    <Compile Include="Menu\ViewModel\VMMenu.cs" />
+    <Compile Include="Tab\ViewModel\VMTab.cs" />
     <Page Include="Main\View\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="LaunchingApp.cs" />
+    <Compile Include="Main\ViewModel\MainViewModel.cs" />
     <Compile Include="Main\View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
@@ -94,8 +99,12 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Main\ViewModel\" />
+    <ProjectReference Include="..\StandardTools\StandardTools.csproj">
+      <Project>{4C056569-A9D7-4CF7-AA5F-7A3F45DE91FD}</Project>
+      <Name>StandardTools</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

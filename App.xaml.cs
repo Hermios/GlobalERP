@@ -15,15 +15,7 @@ namespace GlobalERP
     {
         private void Application_Startup(object sender, StartupEventArgs e)
         {
-            //Start Service Location
-
-            //Load configuration data
-
-            //Connect to database
-
-            //Load xml Descriptions
-
-            //Open Window
+            LaunchingApp.Bootstrap();
         }
     }
 }
