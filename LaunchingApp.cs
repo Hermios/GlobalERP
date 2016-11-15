@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GlobalERP.Main;
+using StandardTools.ViewHandler;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,7 +20,8 @@ namespace GlobalERP
 
             //Load xml Descriptions
 
-            //Open Window
+            //Open main Window
+            WindowHandler.OpenWindow<MainView>(new MainViewModel(), true);
         }
     }
 }

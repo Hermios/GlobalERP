@@ -61,6 +61,7 @@
     </Compile>
     <Compile Include="Frame\ViewModel\VMFrame.cs" />
     <Compile Include="Menu\ViewModel\VMMenu.cs" />
+    <Compile Include="Misc\ViewModelEntity.cs" />
     <Compile Include="Tab\ViewModel\VMTab.cs" />
     <Page Include="Main\View\MainView.xaml">
       <SubType>Designer</SubType>

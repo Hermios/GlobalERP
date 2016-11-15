@@ -1,7 +1,8 @@
 ﻿using GlobalERP.Frame;
 using GlobalERP.Menu;
+using GlobalERP.Misc;
 using GlobalERP.Tab;
-using StandardTools.ViewModel;
+using StandardTools.ViewHandler;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,8 +13,8 @@ namespace GlobalERP.Main
 {
     public class MainViewModel : ViewModelBase
     {
-        List<VMFrame> _frames;
-        List<VMTab> _tabs;
-        List<VMMenu> _menus;
+        List<IViewModelEntity<VMFrame>> _frames;
+        List<IViewModelEntity<VMTab>> _tabs;
+        List<IViewModelEntity<VMMenu>> _menus;
     }
 }
