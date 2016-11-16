@@ -14,6 +14,21 @@
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
     <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -59,19 +74,22 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Frame\ViewModel\VMFrame.cs" />
-    <Compile Include="Menu\ViewModel\VMMenu.cs" />
-    <Compile Include="Misc\ViewModelEntity.cs" />
-    <Compile Include="Tab\ViewModel\VMTab.cs" />
-    <Page Include="Main\View\MainView.xaml">
+    <Compile Include="GUI\Instance\EntityFactory.cs" />
+    <Compile Include="GUI\Model\Frame\ViewModel\VMFrame.cs" />
+    <Compile Include="GUI\Model\Menu\ViewModel\VMMenu.cs" />
+    <Compile Include="GUI\Instance\IEntity.cs" />
+    <Compile Include="GUI\Model\Tab\ViewModel\VMTab.cs" />
+    <Page Include="GUI\Model\Main\View\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\GUIEntitiesLoader.cs" />
+    <Compile Include="Helpers\ParametersHandler.cs" />
     <Compile Include="LaunchingApp.cs" />
-    <Compile Include="Main\ViewModel\MainViewModel.cs" />
-    <Compile Include="Main\View\MainView.xaml.cs">
+    <Compile Include="GUI\Model\Main\ViewModel\MainViewModel.cs" />
+    <Compile Include="GUI\Model\Main\View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -100,12 +118,26 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Database\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StandardTools\StandardTools.csproj">
       <Project>{4C056569-A9D7-4CF7-AA5F-7A3F45DE91FD}</Project>
       <Name>StandardTools</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.1 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

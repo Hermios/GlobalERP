@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GlobalERP.Tab
+namespace GlobalERP.GUI.Model.Tab
 {
     public class VMTab:ViewModelBase
     {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GlobalERP.Menu
+namespace GlobalERP.GUI.Model.Menu
 {
     public class VMMenu:ViewModelBase
     {
