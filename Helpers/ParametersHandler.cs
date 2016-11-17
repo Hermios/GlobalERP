@@ -32,5 +32,7 @@ namespace GlobalERP.Helpers
     public enum ParameterKey
     {
         mainXml,
+        tagStandardRegex,
+        tagRefRegex,
     }
 }
