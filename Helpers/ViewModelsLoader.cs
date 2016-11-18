@@ -6,31 +6,24 @@ using System.Linq;
 using System.Xml;
 using System.Text.RegularExpressions;
 using GlobalERP.GUI.Model;
+using GlobalERP.GUI.Instance;
 
 namespace GlobalERP.Helpers
 {
     public class ViewModelsLoader:IService
     {
+        public ModelViewModel MainEntity { get; private set; }
+
         private Dictionary<string, ModelViewModel> _vms;
-        private ParametersHandler<ParameterKey> _paramHandler;
+        private ParametersHandler<ParameterKey> _parameters;
 
         private Regex _tagStandardRegex;
         private Regex _tagRefRegex;
         private string _directoryPath;
         private string _attributeType;
-        public ViewModelsLoader(string directoryPath)
+        public ViewModelsLoader()
         {
-            if (!directoryPath.EndsWith("/"))
-                directoryPath = directoryPath + "/";
-            _paramHandler =ServiceLocator.getServiceLocator().get<ParametersHandler<ParameterKey>>();
-            _directoryPath = directoryPath;
-            _tagStandardRegex = new Regex(_paramHandler.getString(ParameterKey.tagStandardRegex));
-            _tagRefRegex = new Regex(_paramHandler.getString(ParameterKey.tagRefRegex));
-            _attributeType = _paramHandler.getString(ParameterKey.attributeType);
-            var listFiles = Directory.GetFiles(directoryPath).Select(x=>x.Replace(directoryPath+"\\","")).ToList();
-            var mainXmlName = _paramHandler.getString(ParameterKey.mainXml);
-            if (!listFiles.Contains(mainXmlName))
-                throw new MissingFieldException();
+            _vms = new Dictionary<string, ModelViewModel>();            
         }
 
         private ModelViewModel getFileModel(string fileName)
@@ -52,22 +45,25 @@ namespace GlobalERP.Helpers
                                 Type vmType = Type.GetType(reader.GetAttribute(_attributeType));
                                 result = (ModelViewModel)Activator.CreateInstance(vmType);
                             }
-                            //Create instance from default entity
                             else
                             {
                                 ModelViewModel vm = null;
-                                if (_tagStandardRegex.Match(reader.Name).Success)
-                                {
-                                    Type vmType = Type.GetType(reader.Name);
-                                    vm = (ModelViewModel)Activator.CreateInstance(vmType);
-                                    //EntityFactory.CreateEntity<vmType>();
-                                }
-                                    
+                                var isVisible = reader.GetAttribute(_parameters.getString(ParameterKey.attributeIsVisible));
+                                var position = reader.GetAttribute(_parameters.getString(ParameterKey.attributePosition));
+                                //Create instance from default entity
+                                if (_tagStandardRegex.Match(reader.Name).Success)                                
+                                    vm=(ModelViewModel)Activator.CreateInstance(Type.GetType(reader.Name));
+                                
                                 //Create instance from customized entity
                                 else if (_tagStandardRegex.Match(reader.Name).Success)
+                                {
                                     if (!_vms.ContainsKey(reader.Name))
-                                        vm=getFileModel(reader.Name);
-                            }                      
+                                        _vms.Add(reader.Name, getFileModel(reader.Name));
+                                    vm = _vms[reader.Name];
+                                }
+                                result.addEntity(EntityFactory.CreateEntity(vm,isVisible, position));
+
+                            }
                             break;
                         default:
                             break;
@@ -80,6 +76,16 @@ namespace GlobalERP.Helpers
 
         public void initService(params object[] args)
         {
+            var serviceLocator = (IServiceLocator)args[0];
+            var directoryPath = (string)args[1];
+            if (!directoryPath.EndsWith("/"))
+                directoryPath = directoryPath + "/";
+            _parameters = serviceLocator.get<ParametersHandler<ParameterKey>>();
+            _directoryPath = directoryPath;
+            _tagStandardRegex = new Regex(_parameters.getString(ParameterKey.tagStandardRegex));
+            _tagRefRegex = new Regex(_parameters.getString(ParameterKey.tagRefRegex));
+            _attributeType = _parameters.getString(ParameterKey.attributeType);
+            MainEntity = getFileModel(_parameters.getString(ParameterKey.mainXml));
         }
     }
 }

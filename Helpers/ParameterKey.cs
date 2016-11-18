@@ -12,5 +12,7 @@ namespace GlobalERP.Helpers
         tagStandardRegex,
         tagRefRegex,
         attributeType,
+        attributeIsVisible,
+        attributePosition
     }
 }

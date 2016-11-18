@@ -45,10 +45,15 @@ namespace GlobalERP.GUI.Instance
             }
         }
 
-        public static IEntity CreateEntity<T>(bool isVisible,int position) where T : ModelViewModel
+        public static IEntity CreateEntity(ModelViewModel vm, string isVisible,string position)
+        {
+            return CreateEntity(vm,bool.Parse(isVisible), int.Parse(position));
+        }
+
+        public static IEntity CreateEntity(ModelViewModel vm,bool isVisible, int position)
         {
             IEntity entity = new EntityFactory();
-            entity._viewModel= (T)Activator.CreateInstance(typeof(T));
+            entity._viewModel = vm;
             entity._isVisible = isVisible;
             entity._position = position;
             return entity;

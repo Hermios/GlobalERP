@@ -5,11 +5,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace GlobalERP.GUI.Model
 {
-    public class ModelViewModel: ViewModelBase
+    public abstract class ModelViewModel: ViewModelBase
     {
+        public abstract void InitModelViewModel(XmlNode node);
+
         public List<IEntity> Entities { get; private set; }
 
         public void addEntity(IEntity entity)

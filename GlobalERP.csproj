@@ -88,7 +88,7 @@
   <ItemGroup>
     <Compile Include="Helpers\ParameterKey.cs" />
     <Compile Include="Helpers\ViewModelsLoader.cs" />
-    <Compile Include="LaunchingApp.cs" />
+    <Compile Include="LaunchingERP.cs" />
     <Compile Include="GUI\Model\Main\ViewModel\MainViewModel.cs" />
     <Compile Include="GUI\Model\Main\View\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
