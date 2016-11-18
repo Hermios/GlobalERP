@@ -1,23 +1,11 @@
 ﻿using System;
-using StandardTools.ViewHandler;
+using GlobalERP.GUI.Model;
 
 namespace GlobalERP.GUI.Instance
 {
     public class EntityFactory:IEntity 
     {
-        public ViewModelBase _viewModel
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
+        
         public bool _isVisible
         {
             get
@@ -44,7 +32,20 @@ namespace GlobalERP.GUI.Instance
             }
         }
 
-        public static IEntity CreateEntity<T>(bool isVisible,int position) where T : ViewModelBase
+        public ModelViewModel _viewModel
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public static IEntity CreateEntity<T>(bool isVisible,int position) where T : ModelViewModel
         {
             IEntity entity = new EntityFactory();
             entity._viewModel= (T)Activator.CreateInstance(typeof(T));

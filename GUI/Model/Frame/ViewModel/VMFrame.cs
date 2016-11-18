@@ -1,8 +1,6 @@
-﻿using StandardTools.ViewHandler;
-
-namespace GlobalERP.GUI.Model.Frame
+﻿namespace GlobalERP.GUI.Model.Frame
 {
-    public class VMFrame:ViewModelBase
+    public class VMFrame: ModelViewModel
     {
     } 
 }

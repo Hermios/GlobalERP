@@ -1,10 +1,10 @@
-﻿using StandardTools.ViewHandler;
+﻿using GlobalERP.GUI.Model;
 
 namespace GlobalERP.GUI.Instance
 {
     public interface IEntity
     {
-        ViewModelBase _viewModel { get; set; }
+        ModelViewModel _viewModel { get; set; }
         bool _isVisible { get; set; }
         int _position { get; set; }
     }

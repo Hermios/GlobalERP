@@ -78,6 +78,7 @@
     <Compile Include="GUI\Model\Frame\ViewModel\VMFrame.cs" />
     <Compile Include="GUI\Model\Menu\ViewModel\VMMenu.cs" />
     <Compile Include="GUI\Instance\IEntity.cs" />
+    <Compile Include="GUI\Model\ModelViewModel.cs" />
     <Compile Include="GUI\Model\Tab\ViewModel\VMTab.cs" />
     <Page Include="GUI\Model\Main\View\MainView.xaml">
       <SubType>Designer</SubType>
@@ -85,8 +86,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\GUIEntitiesLoader.cs" />
-    <Compile Include="Helpers\ParametersHandler.cs" />
+    <Compile Include="Helpers\ParameterKey.cs" />
+    <Compile Include="Helpers\ViewModelsLoader.cs" />
     <Compile Include="LaunchingApp.cs" />
     <Compile Include="GUI\Model\Main\ViewModel\MainViewModel.cs" />
     <Compile Include="GUI\Model\Main\View\MainView.xaml.cs">
