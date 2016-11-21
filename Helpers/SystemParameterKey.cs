@@ -6,13 +6,16 @@ using System.Threading.Tasks;
 
 namespace GlobalERP.Helpers
 {
-    public enum ParameterKey
+    public enum SystemParameterKey
     {
-        mainXml,
-        tagStandardRegex,
+        //System
+        configModeTag,
+
+        //XMLModels
+        mainXmlFile,
         tagRefRegex,
-        attributeType,
         attributeIsVisible,
-        attributePosition
+        attributePosition,
+            
     }
 }

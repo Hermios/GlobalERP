@@ -2,65 +2,72 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Xml;
-using System.Text.RegularExpressions;
 using GlobalERP.GUI.Model;
 using GlobalERP.GUI.Instance;
+using GlobalERP.Editor.Helpers;
 
 namespace GlobalERP.Helpers
 {
-    public class ViewModelsLoader:IService
+    public class ViewModelLoader:IService
     {
         public ModelViewModel MainEntity { get; private set; }
 
         private Dictionary<string, ModelViewModel> _vms;
-        private ParametersHandler<ParameterKey> _parameters;
+        private ParametersHandler<SystemParameterKey> _sysparameters;
+        private IServiceLocator _serviceLocator;
 
-        private Regex _tagStandardRegex;
-        private Regex _tagRefRegex;
+        private bool _isEditMode;
+        private string _tagRefRegex;
         private string _directoryPath;
-        private string _attributeType;
-        public ViewModelsLoader()
+        
+        public ViewModelLoader()
         {
             _vms = new Dictionary<string, ModelViewModel>();            
         }
 
+        public ModelViewModel LoadModels()
+        {
+            return getFileModel(_sysparameters.getString(SystemParameterKey.mainXmlFile));
+        }
+
         private ModelViewModel getFileModel(string fileName)
         {
-            if (fileName.EndsWith(".xml"))
+            if (!fileName.EndsWith(".xml"))
                 fileName = fileName + ".xml";
             ModelViewModel result = null;
-            string file = _directoryPath + "/" + fileName;
+            string file = Path.Combine(_directoryPath,fileName);
+            if (!File.Exists(file) && _isEditMode)
+                _serviceLocator.get<ViewModelCreator>().CreateModel(fileName);
             using (var reader=XmlReader.Create(file))
             {
                 while (reader.Read())
                 {
                     switch (reader.NodeType)
                     {
-                        //Create entity
                         case XmlNodeType.Element:
-                            if (result == null && reader.Name + ".xml" == fileName)
+                            //if mainRoot
+                            if (result == null)
                             {
-                                Type vmType = Type.GetType(reader.GetAttribute(_attributeType));
+                                Type vmType = Type.GetType(reader.GetAttribute(reader.Name));
                                 result = (ModelViewModel)Activator.CreateInstance(vmType);
                             }
                             else
                             {
                                 ModelViewModel vm = null;
-                                var isVisible = reader.GetAttribute(_parameters.getString(ParameterKey.attributeIsVisible));
-                                var position = reader.GetAttribute(_parameters.getString(ParameterKey.attributePosition));
-                                //Create instance from default entity
-                                if (_tagStandardRegex.Match(reader.Name).Success)                                
-                                    vm=(ModelViewModel)Activator.CreateInstance(Type.GetType(reader.Name));
-                                
-                                //Create instance from customized entity
-                                else if (_tagStandardRegex.Match(reader.Name).Success)
+                                var isVisible = reader.GetAttribute(_sysparameters.getString(SystemParameterKey.attributeIsVisible));
+                                var position = reader.GetAttribute(_sysparameters.getString(SystemParameterKey.attributePosition));
+                                    
+                                //if customized entity
+                                if (reader.Name.StartsWith(_tagRefRegex))
                                 {
                                     if (!_vms.ContainsKey(reader.Name))
                                         _vms.Add(reader.Name, getFileModel(reader.Name));
                                     vm = _vms[reader.Name];
                                 }
+                                else
+                                    vm = (ModelViewModel)Activator.CreateInstance(Type.GetType(reader.Name));
+
                                 result.addEntity(EntityFactory.CreateEntity(vm,isVisible, position));
 
                             }
@@ -74,18 +81,17 @@ namespace GlobalERP.Helpers
                 
         }
 
-        public void initService(params object[] args)
+        public void initService(IServiceLocator serviceLocator, params object[] args)
         {
-            var serviceLocator = (IServiceLocator)args[0];
-            var directoryPath = (string)args[1];
+            _serviceLocator = serviceLocator;
+            var configParameters = _serviceLocator.get<ParametersHandler<ConfigParameterKey>>();
+            var directoryPath = configParameters.getString(ConfigParameterKey.xmlDirectoryPath);
             if (!directoryPath.EndsWith("/"))
                 directoryPath = directoryPath + "/";
-            _parameters = serviceLocator.get<ParametersHandler<ParameterKey>>();
+            _sysparameters = _serviceLocator.get<ParametersHandler<SystemParameterKey>>();
+            _isEditMode = _serviceLocator.get<GlobalData>().IsEditMode;
             _directoryPath = directoryPath;
-            _tagStandardRegex = new Regex(_parameters.getString(ParameterKey.tagStandardRegex));
-            _tagRefRegex = new Regex(_parameters.getString(ParameterKey.tagRefRegex));
-            _attributeType = _parameters.getString(ParameterKey.attributeType);
-            MainEntity = getFileModel(_parameters.getString(ParameterKey.mainXml));
+            _tagRefRegex =_sysparameters.getString(SystemParameterKey.tagRefRegex);
         }
     }
 }

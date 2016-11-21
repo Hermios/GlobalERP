@@ -1,5 +1,8 @@
-﻿using GlobalERP.Helpers;
+﻿using GlobalERP.Editor.Helpers;
+using GlobalERP.Helpers;
 using StandardTools.ServiceLocator;
+using StandardTools.ViewHandler;
+using StandardTools.ViewHandler.MessageBox;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -18,27 +21,30 @@ namespace GlobalERP
         private void Application_Startup(object sender, StartupEventArgs e)
         {
             //Start Service Location
-            var serviceLocator = initServiceLocator();
+            var serviceLocator = initServiceLocator(e.Args);
             //Load configuration data
-            var parametersHandler = serviceLocator.get<ParametersHandler<ParameterKey>>();
+            var parametersHandler = serviceLocator.get<ParametersHandler<SystemParameterKey>>();
+                        
             //Connect to database
 
             //Load xml Descriptions
-            var viewModelsLoader = serviceLocator.get<ViewModelsLoader>();
+            var viewModelsLoader = serviceLocator.get<ViewModelLoader>();
 
             //Load apps
-            if (e.Args[0] == "Config") ;
-            else
-                LaunchingERP.Bootstrap(viewModelsLoader.MainEntity);
+            LaunchingERP.Bootstrap(viewModelsLoader.LoadModels());
         }
 
-        private IServiceLocator initServiceLocator()
+        private IServiceLocator initServiceLocator(object[] args)
         {
             var serviceLocator = ServiceLocator.getServiceLocator();
 
             // Add services
-            serviceLocator.add<ParametersHandler<ParameterKey>>();
-            serviceLocator.add<ViewModelsLoader>(serviceLocator, "");
+            serviceLocator.add<ParametersHandler<SystemParameterKey>>();
+            serviceLocator.add<ParametersHandler<ConfigParameterKey>>();
+            serviceLocator.add<GlobalData>(args);
+            serviceLocator.add<ViewModelLoader>();
+            if (serviceLocator.get<GlobalData>().IsEditMode)
+            serviceLocator.add<ViewModelCreator>();
 
             return serviceLocator;
         }

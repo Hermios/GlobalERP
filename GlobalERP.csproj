@@ -74,25 +74,33 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Editor\CreateModelMessageBox\CreateModelMessageBoxViewModel.cs" />
+    <Compile Include="Editor\CreateModelMessageBox\View\CreateModelMessageBoxView.xaml.cs">
+      <DependentUpon>CreateModelMessageBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Editor\Helpers\ViewModelCreator.cs" />
     <Compile Include="GUI\Instance\EntityFactory.cs" />
     <Compile Include="GUI\Model\Frame\ViewModel\VMFrame.cs" />
     <Compile Include="GUI\Model\Menu\ViewModel\VMMenu.cs" />
     <Compile Include="GUI\Instance\IEntity.cs" />
     <Compile Include="GUI\Model\ModelViewModel.cs" />
     <Compile Include="GUI\Model\Tab\ViewModel\VMTab.cs" />
-    <Page Include="GUI\Model\Main\View\MainView.xaml">
+    <Compile Include="Properties\Texts.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Texts.resx</DependentUpon>
+    </Compile>
+    <Page Include="Editor\CreateModelMessageBox\View\CreateModelMessageBoxView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\ParameterKey.cs" />
+    <Compile Include="Helpers\GlobalData.cs" />
+    <Compile Include="Helpers\ConfigParameterKey.cs" />
+    <Compile Include="Helpers\SystemParameterKey.cs" />
     <Compile Include="Helpers\ViewModelsLoader.cs" />
     <Compile Include="LaunchingERP.cs" />
-    <Compile Include="GUI\Model\Main\ViewModel\MainViewModel.cs" />
-    <Compile Include="GUI\Model\Main\View\MainView.xaml.cs">
-      <DependentUpon>MainView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -110,6 +118,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Texts.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Texts.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -121,6 +133,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Database\" />
+    <Folder Include="Editor\CreateModelMessageBox\ViewModel\" />
+    <Folder Include="Editor\EntitiesView\" />
+    <Folder Include="Editor\Main\ViewModel\" />
+    <Folder Include="Editor\Main\View\" />
+    <Folder Include="Editor\Menus\" />
+    <Folder Include="Editor\Options\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StandardTools\StandardTools.csproj">
