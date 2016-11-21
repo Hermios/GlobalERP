@@ -28,10 +28,10 @@ namespace GlobalERP
             //Connect to database
 
             //Load xml Descriptions
-            var viewModelsLoader = serviceLocator.get<ViewModelLoader>();
+            var viewBusinessObjectsLoader = serviceLocator.get<BusinessObjectsLoader>();
 
             //Load apps
-            LaunchingERP.Bootstrap(viewModelsLoader.LoadModels());
+            LaunchingERP.Bootstrap(viewBusinessObjectsLoader.LoadBusinessObjects());
         }
 
         private IServiceLocator initServiceLocator(object[] args)
@@ -42,9 +42,10 @@ namespace GlobalERP
             serviceLocator.add<ParametersHandler<SystemParameterKey>>();
             serviceLocator.add<ParametersHandler<ConfigParameterKey>>();
             serviceLocator.add<GlobalData>(args);
-            serviceLocator.add<ViewModelLoader>();
+            serviceLocator.add<BusinessObjectTypesEnumerator>();
+            serviceLocator.add<BusinessObjectsLoader>();
             if (serviceLocator.get<GlobalData>().IsEditMode)
-            serviceLocator.add<ViewModelCreator>();
+            serviceLocator.add<BusinessObjectsCreator>();
 
             return serviceLocator;
         }

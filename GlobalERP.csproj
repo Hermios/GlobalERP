@@ -74,27 +74,30 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Editor\CreateModelMessageBox\CreateModelMessageBoxViewModel.cs" />
-    <Compile Include="Editor\CreateModelMessageBox\View\CreateModelMessageBoxView.xaml.cs">
-      <DependentUpon>CreateModelMessageBoxView.xaml</DependentUpon>
+    <Compile Include="Editor\CreateContainerModelMessageBox\CreateContainerModelMessageBoxViewModel.cs" />
+    <Compile Include="Editor\CreateContainerModelMessageBox\View\CreateContainerModelMessageBoxView.xaml.cs">
+      <DependentUpon>CreateContainerModelMessageBoxView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Editor\Helpers\ViewModelCreator.cs" />
+    <Compile Include="Editor\Helpers\BusinessObjectsCreator.cs" />
     <Compile Include="GUI\Instance\EntityFactory.cs" />
     <Compile Include="GUI\Instance\IEntity.cs" />
-    <Compile Include="GUI\Model\Frame\ViewModel\VMFrame.cs" />
-    <Compile Include="GUI\Model\Menu\ViewModel\VMMenu.cs" />
-    <Compile Include="GUI\Model\ModelViewModel.cs" />
-    <Compile Include="GUI\Model\Tab\ViewModel\VMTab.cs" />
+    <Compile Include="GUI\BusinessObject\Abstract\AbstractContainerViewModel.cs" />
+    <Compile Include="GUI\BusinessObject\Frame\ViewModel\BOFrameViewModel.cs" />
+    <Compile Include="GUI\BusinessObject\Menu\ViewModel\BOMenuViewModel.cs" />
+    <Compile Include="GUI\BusinessObject\Abstract\AbstractStandardViewModel.cs" />
+    <Compile Include="GUI\BusinessObject\Tab\ViewModel\BOTabViewModel.cs" />
+    <Compile Include="Helpers\BusinessObjectTypesEnumerator.cs" />
     <Compile Include="Properties\Texts.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Texts.resx</DependentUpon>
     </Compile>
-    <Page Include="Editor\CreateModelMessageBox\View\CreateModelMessageBoxView.xaml">
+    <Compile Include="Properties\x.cs" />
+    <Page Include="Editor\CreateContainerModelMessageBox\View\CreateContainerModelMessageBoxView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\Model\Main\View\MainView.xaml">
+    <Page Include="GUI\BusinessObject\Main\View\MainView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -103,7 +106,7 @@
     <Compile Include="Helpers\GlobalData.cs" />
     <Compile Include="Helpers\ConfigParameterKey.cs" />
     <Compile Include="Helpers\SystemParameterKey.cs" />
-    <Compile Include="Helpers\ViewModelsLoader.cs" />
+    <Compile Include="Helpers\BusinessObjectsLoader.cs" />
     <Compile Include="LaunchingERP.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -123,7 +126,7 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Texts.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Texts.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -137,7 +140,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Database\" />
-    <Folder Include="Editor\CreateModelMessageBox\ViewModel\" />
+    <Folder Include="Editor\CreateContainerModelMessageBox\ViewModel\" />
     <Folder Include="Editor\EntitiesView\" />
     <Folder Include="Editor\Main\ViewModel\" />
     <Folder Include="Editor\Main\View\" />

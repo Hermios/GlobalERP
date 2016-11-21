@@ -11,7 +11,7 @@ namespace GlobalERP.Helpers
         //System
         configModeTag,
 
-        //XMLModels
+        //XMLBusinessObjects
         mainXmlFile,
         tagRefRegex,
         attributeIsVisible,

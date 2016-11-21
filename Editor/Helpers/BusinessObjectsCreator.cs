@@ -1,4 +1,4 @@
-﻿using GlobalERP.Editor.CreateModelMessageBox;
+﻿using GlobalERP.Editor.CreateBusinessObjectMessageBox;
 using GlobalERP.Helpers;
 using StandardTools.ServiceLocator;
 using StandardTools.ViewHandler;
@@ -13,25 +13,22 @@ using System.Xml;
 
 namespace GlobalERP.Editor.Helpers
 {
-    public class ViewModelCreator:IService
+    public class BusinessObjectsCreator:IService
     {
             
         private string _directoryPath;
-        public void CreateModel(string modelName)
+        public void CreateBusinessObject(string businessObjectName)
         {
-            var yesNoCancelButtons = new Dictionary<string, object>();
-            yesNoCancelButtons.Add("Yes", true);
-            yesNoCancelButtons.Add("No", false);
-            var createMBVM = new CreateModelMessageBoxViewModel(modelName);
-            WindowHandler.OpenWindow<CreateModelMessageBoxView>(createMBVM, false);
-            if (createMBVM.ModelViewModelResult == null)
+            var createMBVM = new CreateContainerBusinessObjectMessageBoxViewModel(businessObjectName);
+            WindowHandler.OpenWindow<CreateBusinessObjectMessageBoxView>(createMBVM, false);
+            if (createMBVM.ContainerBusinessObjectResult == null)
                 return;
-            string filePath = Path.Combine(_directoryPath, modelName);
-            if (!modelName.EndsWith(".xml"))
-                modelName = modelName + ".xml";            
+            string filePath = Path.Combine(_directoryPath, businessObjectName);
+            if (!businessObjectName.EndsWith(".xml"))
+                businessObjectName = businessObjectName + ".xml";            
                 XmlTextWriter writer = new XmlTextWriter(filePath, Encoding.UTF8);
                 writer.WriteStartDocument(true);
-                writer.WriteStartElement(modelName.Replace(".xml", ""));
+                writer.WriteStartElement(createMBVM.ContainerBusinessObjectResult.Name);
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
                 writer.Close();

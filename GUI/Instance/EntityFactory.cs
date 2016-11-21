@@ -1,5 +1,6 @@
 ﻿using System;
-using GlobalERP.GUI.Model;
+using GlobalERP.GUI.BusinessObject;
+using GlobalERP.GUI.BusinessObject.Abstract;
 
 namespace GlobalERP.GUI.Instance
 {
@@ -32,7 +33,7 @@ namespace GlobalERP.GUI.Instance
             }
         }
 
-        public ModelViewModel _viewModel
+        public AbstractStandardViewModel _viewBusinessObject
         {
             get
             {
@@ -45,15 +46,15 @@ namespace GlobalERP.GUI.Instance
             }
         }
 
-        public static IEntity CreateEntity(ModelViewModel vm, string isVisible,string position)
+        public static IEntity CreateEntity(AbstractStandardViewModel vm, string isVisible,string position)
         {
             return CreateEntity(vm,bool.Parse(isVisible), int.Parse(position));
         }
 
-        public static IEntity CreateEntity(ModelViewModel vm,bool isVisible, int position)
+        public static IEntity CreateEntity(AbstractStandardViewModel vm,bool isVisible, int position)
         {
             IEntity entity = new EntityFactory();
-            entity._viewModel = vm;
+            entity._viewBusinessObject = vm;
             entity._isVisible = isVisible;
             entity._position = position;
             return entity;

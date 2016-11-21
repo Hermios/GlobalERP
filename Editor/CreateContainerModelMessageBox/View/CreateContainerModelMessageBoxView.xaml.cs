@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace GlobalERP.Editor.CreateModelMessageBox
+namespace GlobalERP.Editor.CreateBusinessObjectMessageBox
 {
     /// <summary>
-    /// Interaction logic for CreateModelMessageBoxView.xaml
+    /// Interaction logic for CreateBusinessObjectMessageBoxView.xaml
     /// </summary>
-    public partial class CreateModelMessageBoxView : Window
+    public partial class CreateBusinessObjectMessageBoxView : Window
     {
-        public CreateModelMessageBoxView()
+        public CreateBusinessObjectMessageBoxView()
         {
             InitializeComponent();
         }
