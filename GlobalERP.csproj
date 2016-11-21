@@ -80,9 +80,9 @@
     </Compile>
     <Compile Include="Editor\Helpers\ViewModelCreator.cs" />
     <Compile Include="GUI\Instance\EntityFactory.cs" />
+    <Compile Include="GUI\Instance\IEntity.cs" />
     <Compile Include="GUI\Model\Frame\ViewModel\VMFrame.cs" />
     <Compile Include="GUI\Model\Menu\ViewModel\VMMenu.cs" />
-    <Compile Include="GUI\Instance\IEntity.cs" />
     <Compile Include="GUI\Model\ModelViewModel.cs" />
     <Compile Include="GUI\Model\Tab\ViewModel\VMTab.cs" />
     <Compile Include="Properties\Texts.Designer.cs">
@@ -93,6 +93,10 @@
     <Page Include="Editor\CreateModelMessageBox\View\CreateModelMessageBoxView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\Model\Main\View\MainView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

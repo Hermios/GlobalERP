@@ -17,7 +17,6 @@ namespace GlobalERP.Editor.Helpers
     {
             
         private string _directoryPath;
-        private string _attributeTypeName;
         public void CreateModel(string modelName)
         {
             var yesNoCancelButtons = new Dictionary<string, object>();
@@ -33,7 +32,6 @@ namespace GlobalERP.Editor.Helpers
                 XmlTextWriter writer = new XmlTextWriter(filePath, Encoding.UTF8);
                 writer.WriteStartDocument(true);
                 writer.WriteStartElement(modelName.Replace(".xml", ""));
-                writer.WriteAttributeString(_attributeTypeName, createMBVM.ModelViewModelResult.Name);
                 writer.WriteEndElement();
                 writer.WriteEndDocument();
                 writer.Close();
@@ -45,7 +43,6 @@ namespace GlobalERP.Editor.Helpers
             var configParameters = serviceLocator.get<ParametersHandler<ConfigParameterKey>>();
             _directoryPath = configParameters.getString(ConfigParameterKey.xmlDirectoryPath);
             var systemParameters= serviceLocator.get<ParametersHandler<SystemParameterKey>>();
-            _attributeTypeName = systemParameters.getString(SystemParameterKey.attributeType);
         }
     }
 }
